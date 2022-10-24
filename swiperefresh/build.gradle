@@ -17,6 +17,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
 }
 
 kotlin {
@@ -96,3 +97,28 @@ dependencies {
     api "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 }
 
+publishing {
+    repositories {
+        maven {
+            credentials {
+                username 'admin'
+                password 'bjx123456'
+            }
+            url 'http://192.168.4.243:8081/repository/bjxLib/'
+            allowInsecureProtocol = true
+        }
+    }
+}
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                version '1.0.0'//版本
+                artifactId 'SwipeRefresh-Compose'
+                groupId = 'com.bjx.bjxLib'
+                description 'SwipeRefresh-Compose'
+            }
+        }
+    }
+}
