@@ -13,9 +13,10 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.zIndex
+import com.google.accompanist.swiperefresh.Config.isBjxMedia
 import com.google.accompanist.swiperefresh.footer.BjxRefreshFooter
+import com.google.accompanist.swiperefresh.header.BjxMedaiRefreshHeader
 import com.google.accompanist.swiperefresh.header.BjxRefreshHeader
-import com.google.accompanist.swiperefresh.header.MyRefreshHeader
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
@@ -29,7 +30,9 @@ fun SmartSwipeRefresh(
     isNeedLoadMore: Boolean = true,
     headerThreshold: Dp? = null,
     footerThreshold: Dp? = null,
-    headerIndicator: @Composable () -> Unit = { BjxRefreshHeader(state.refreshFlag) },
+    headerIndicator: @Composable () -> Unit = {
+        if (isBjxMedia) BjxMedaiRefreshHeader(state.refreshFlag) else BjxRefreshHeader(state.refreshFlag)
+    },
     footerIndicator: @Composable () -> Unit = { BjxRefreshFooter(state.loadMoreFlag) },
     content: @Composable () -> Unit,
 ) {
@@ -37,10 +40,6 @@ fun SmartSwipeRefresh(
     LaunchedEffect(Unit) {
         state.indicatorOffsetFlow.collect {
             val currentOffset = with(density) { state.indicatorOffset + it.toDp() }
-            // 重点：解决触摸滑动展示header||footer的时候反向滑动另一边的布局被展示出一个白边出来
-            // 当footer显示的情况下，希望父布局的偏移量最大只有0dp，防止尾布局会被偏移几个像素
-            // 当header显示的情况下，希望父布局的偏移量最小只有0dp，防止头布局会被偏移几个像素
-            // 其余的情况下，直接偏移
             state.snapToOffset(when {
                 state.footerIsShow -> currentOffset.coerceAtMost(0.dp).coerceAtLeast(-(footerThreshold ?: Dp.Infinity))
                 state.headerIsShow -> currentOffset.coerceAtLeast(0.dp).coerceAtMost(headerThreshold ?: Dp.Infinity)
@@ -89,7 +88,6 @@ fun SmartSwipeRefresh(
                         headerIndicator()
                     }
                 }
-                // 因为无法测量出content的高度 所以footer偏移到content布局之下
                 Box(modifier = Modifier.offset(y = state.indicatorOffset)) {
                     content()
                     if (isNeedLoadMore) {
