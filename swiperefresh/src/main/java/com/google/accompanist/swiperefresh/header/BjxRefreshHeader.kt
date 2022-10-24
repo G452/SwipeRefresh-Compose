@@ -1,7 +1,6 @@
 package com.google.accompanist.swiperefresh.header
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.google.accompanist.swiperefresh.AnimImage
+import com.google.accompanist.swiperefresh.config.AnimImage
 import com.google.accompanist.swiperefresh.R
 import com.google.accompanist.swiperefresh.SmartSwipeStateFlag
 import kotlinx.coroutines.delay

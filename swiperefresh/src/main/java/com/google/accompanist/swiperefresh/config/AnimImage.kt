@@ -1,4 +1,6 @@
-package com.google.accompanist.swiperefresh
+package com.google.accompanist.swiperefresh.config
+
+import com.google.accompanist.swiperefresh.R
 
 object AnimImage {
     val loadingList = arrayListOf(

@@ -13,7 +13,7 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.zIndex
-import com.google.accompanist.swiperefresh.Config.isBjxMedia
+import com.google.accompanist.swiperefresh.config.Config.isBjxMedia
 import com.google.accompanist.swiperefresh.footer.BjxRefreshFooter
 import com.google.accompanist.swiperefresh.header.BjxMedaiRefreshHeader
 import com.google.accompanist.swiperefresh.header.BjxRefreshHeader
