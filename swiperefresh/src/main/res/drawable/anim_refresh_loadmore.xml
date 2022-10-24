@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item
+        android:drawable="@drawable/load_more00"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more01"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more02"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more03"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more04"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more05"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more06"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more07"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more08"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more09"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more10"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more11"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more12"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more13"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more14"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more15"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more16"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more17"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more18"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more19"
+        android:duration="50" />
+    <item
+        android:drawable="@drawable/load_more20"
+        android:duration="50" />
+
+</animation-list>
