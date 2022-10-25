@@ -38,7 +38,7 @@ fun BjxRefreshHeader(flag: SmartSwipeStateFlag) {
             }
         }
     }
-    ConstraintLayout(modifier = Modifier.fillMaxWidth().height(80.dp).background(Color.White)) {
+    ConstraintLayout(modifier = Modifier.fillMaxWidth().height(50.dp).background(Color.White)) {
         val (img) = createRefs()
         Image(painter = painterResource(loadImg.value), contentDescription = null, modifier = Modifier.constrainAs(img) {
             start.linkTo(parent.start)

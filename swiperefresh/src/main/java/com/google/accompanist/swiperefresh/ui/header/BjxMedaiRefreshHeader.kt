@@ -22,7 +22,7 @@ import kotlinx.coroutines.delay
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun BjxMedaiRefreshHeader(flag: SmartSwipeStateFlag) {
-    val loadImg = remember { mutableStateOf(R.drawable.loading_medai_00) }
+    val loadImg = remember { mutableStateOf(R.drawable.load_more00) }
     LaunchedEffect(flag) {
         var index = 0
         var isLoad = true

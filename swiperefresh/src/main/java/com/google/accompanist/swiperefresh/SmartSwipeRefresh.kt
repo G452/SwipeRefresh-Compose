@@ -29,10 +29,10 @@ import kotlinx.coroutines.flow.collect
 
 @Composable
 fun <T> SmartSwipeRefresh(
+    state: SmartSwipeRefreshState,
     modifier: Modifier = Modifier,
     onRefresh: (suspend () -> Unit)? = null,
     onLoadMore: (suspend () -> Unit)? = null,
-    state: SmartSwipeRefreshState,
     swipeUiState: SwipeUiState<T>? = null,//如果传入了swipeUiState，则SmartSwipeRefresh帮你处理:上拉下拉状态、缺省图
     scrollState: LazyListState? = rememberLazyListState(),
     isNeedRefresh: Boolean = true,//是否需要下拉刷新
