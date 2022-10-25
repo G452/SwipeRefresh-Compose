@@ -3,6 +3,8 @@ package com.google.accompanist.swiperefresh
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -14,6 +16,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.zIndex
 import com.google.accompanist.swiperefresh.config.Config.isBjxMedia
+import com.google.accompanist.swiperefresh.config.SwipeUiState
 import com.google.accompanist.swiperefresh.footer.BjxRefreshFooter
 import com.google.accompanist.swiperefresh.header.BjxMedaiRefreshHeader
 import com.google.accompanist.swiperefresh.header.BjxRefreshHeader
@@ -21,11 +24,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
 @Composable
-fun SmartSwipeRefresh(
+fun <T> SmartSwipeRefresh(
     modifier: Modifier = Modifier,
     onRefresh: (suspend () -> Unit)? = null,
     onLoadMore: (suspend () -> Unit)? = null,
     state: SmartSwipeRefreshState,
+    swipeUiState: SwipeUiState<T>? = null,//如果传入了swipeUiState，则SmartSwipeRefresh帮你处理:上拉下拉状态、缺省图
+    scrollState: LazyListState? = rememberLazyListState(),
     isNeedRefresh: Boolean = true,
     isNeedLoadMore: Boolean = true,
     headerThreshold: Dp? = null,
@@ -82,12 +87,37 @@ fun SmartSwipeRefresh(
             val smartSwipeRefreshNestedScrollConnection = remember(state, header, footer) {
                 SmartSwipeRefreshNestedScrollConnection(state, header, footer)
             }
+
             Box(modifier.nestedScroll(smartSwipeRefreshNestedScrollConnection), contentAlignment = Alignment.TopCenter) {
                 if (isNeedRefresh) {
                     Box(Modifier.offset(y = -header + state.indicatorOffset)) {
                         headerIndicator()
                     }
                 }
+                scrollState?.let {
+                    LaunchedEffect(state.smartSwipeRefreshAnimateFinishing) {
+                        if (state.smartSwipeRefreshAnimateFinishing.isFinishing && !state.smartSwipeRefreshAnimateFinishing.isRefresh) {
+                            scrollState.animateScrollToItem(scrollState.firstVisibleItemIndex + 1)
+                        }
+                    }
+                }
+                swipeUiState?.let {
+                    LaunchedEffect(swipeUiState) {
+                        if (!swipeUiState.isLoading) {
+                            state.refreshFlag = when (swipeUiState.refreshSuccess) {
+                                true -> SmartSwipeStateFlag.SUCCESS
+                                false -> SmartSwipeStateFlag.ERROR
+                                else -> SmartSwipeStateFlag.IDLE
+                            }
+                            state.loadMoreFlag = when (swipeUiState.loadMoreSuccess) {
+                                true -> SmartSwipeStateFlag.SUCCESS
+                                false -> SmartSwipeStateFlag.ERROR
+                                else -> SmartSwipeStateFlag.IDLE
+                            }
+                        }
+                    }
+                }
+
                 Box(modifier = Modifier.offset(y = state.indicatorOffset)) {
                     content()
                     if (isNeedLoadMore) {
