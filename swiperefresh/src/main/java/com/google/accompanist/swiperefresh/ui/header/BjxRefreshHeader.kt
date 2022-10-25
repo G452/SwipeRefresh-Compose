@@ -1,4 +1,4 @@
-package com.google.accompanist.swiperefresh.header
+package com.google.accompanist.swiperefresh.ui.header
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image

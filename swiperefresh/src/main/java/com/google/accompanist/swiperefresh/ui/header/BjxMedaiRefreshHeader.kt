@@ -1,4 +1,4 @@
-package com.google.accompanist.swiperefresh.header
+package com.google.accompanist.swiperefresh.ui.header
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -22,7 +22,7 @@ import kotlinx.coroutines.delay
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun BjxMedaiRefreshHeader(flag: SmartSwipeStateFlag) {
-    val loadImg = remember { mutableStateOf(R.drawable.loading_00) }
+    val loadImg = remember { mutableStateOf(R.drawable.loading_medai_00) }
     LaunchedEffect(flag) {
         var index = 0
         var isLoad = true
@@ -37,7 +37,7 @@ fun BjxMedaiRefreshHeader(flag: SmartSwipeStateFlag) {
             }
         }
     }
-    ConstraintLayout(modifier = Modifier.fillMaxWidth().height(80.dp).background(Color.White)) {
+    ConstraintLayout(modifier = Modifier.fillMaxWidth().height(50.dp).background(Color.White)) {
         val (img) = createRefs()
         Image(painter = painterResource(loadImg.value), contentDescription = null, modifier = Modifier.constrainAs(img) {
             start.linkTo(parent.start)

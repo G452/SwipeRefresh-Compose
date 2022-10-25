@@ -2,6 +2,7 @@ package com.google.accompanist.swiperefresh
 
 import android.util.Log
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -15,11 +16,14 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.zIndex
+import com.google.accompanist.swiperefresh.config.Config.defaultEmptyImage
+import com.google.accompanist.swiperefresh.config.Config.defaultEmptyTitle
 import com.google.accompanist.swiperefresh.config.Config.isBjxMedia
 import com.google.accompanist.swiperefresh.config.SwipeUiState
-import com.google.accompanist.swiperefresh.footer.BjxRefreshFooter
-import com.google.accompanist.swiperefresh.header.BjxMedaiRefreshHeader
-import com.google.accompanist.swiperefresh.header.BjxRefreshHeader
+import com.google.accompanist.swiperefresh.ui.EmptyView
+import com.google.accompanist.swiperefresh.ui.footer.BjxRefreshFooter
+import com.google.accompanist.swiperefresh.ui.header.BjxMedaiRefreshHeader
+import com.google.accompanist.swiperefresh.ui.header.BjxRefreshHeader
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
@@ -31,14 +35,18 @@ fun <T> SmartSwipeRefresh(
     state: SmartSwipeRefreshState,
     swipeUiState: SwipeUiState<T>? = null,//如果传入了swipeUiState，则SmartSwipeRefresh帮你处理:上拉下拉状态、缺省图
     scrollState: LazyListState? = rememberLazyListState(),
-    isNeedRefresh: Boolean = true,
-    isNeedLoadMore: Boolean = true,
+    isNeedRefresh: Boolean = true,//是否需要下拉刷新
+    isNeedLoadMore: Boolean = true,//是否需要上拉加载更多
+    isNeedEmptyView: Boolean = true,//是否需要缺省图
+    EmptyImg: Int = defaultEmptyImage,//缺省图icon
+    EmptyTitle: String = defaultEmptyTitle,//缺省图文案
+    onEmptyClick: () -> Unit = {},//缺省图点击
     headerThreshold: Dp? = null,
     footerThreshold: Dp? = null,
-    headerIndicator: @Composable () -> Unit = {
+    headerIndicator: @Composable () -> Unit = { //下拉headerView
         if (isBjxMedia) BjxMedaiRefreshHeader(state.refreshFlag) else BjxRefreshHeader(state.refreshFlag)
     },
-    footerIndicator: @Composable () -> Unit = { BjxRefreshFooter(state.loadMoreFlag) },
+    footerIndicator: @Composable () -> Unit = { BjxRefreshFooter(state.loadMoreFlag) },//上拉footerView
     content: @Composable () -> Unit,
 ) {
     val density = LocalDensity.current
@@ -117,9 +125,12 @@ fun <T> SmartSwipeRefresh(
                         }
                     }
                 }
-
-                Box(modifier = Modifier.offset(y = state.indicatorOffset)) {
-                    content()
+                Box(modifier = Modifier.offset(y = state.indicatorOffset).fillMaxSize()) {
+                    if (isNeedEmptyView) {
+                        if (swipeUiState?.list.isNullOrEmpty() && swipeUiState?.data == null && swipeUiState?.refreshSuccess == false) {
+                            EmptyView(EmptyImg, EmptyTitle, onEmptyClick)
+                        } else content()
+                    } else content()
                     if (isNeedLoadMore) {
                         Box(modifier = Modifier.align(Alignment.BottomCenter).offset(y = footer)) {
                             footerIndicator()

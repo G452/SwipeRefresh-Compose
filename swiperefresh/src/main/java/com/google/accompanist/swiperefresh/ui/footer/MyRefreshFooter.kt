@@ -1,6 +1,4 @@
-
-package com.google.accompanist.swiperefresh.header
-
+package com.google.accompanist.swiperefresh.ui.footer
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,7 +6,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.*
@@ -23,7 +21,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Composable
-fun MyRefreshHeader(flag: SmartSwipeStateFlag, isNeedTimestamp: Boolean = true) {
+fun MyRefreshFooter(flag: SmartSwipeStateFlag, isNeedTimestamp: Boolean = true) {
     var lastRecordTime by remember {
         mutableStateOf(System.currentTimeMillis())
     }
@@ -50,7 +48,7 @@ fun MyRefreshHeader(flag: SmartSwipeStateFlag, isNeedTimestamp: Boolean = true) 
             Icon(
                 modifier = Modifier.rotate(if (flag == SmartSwipeStateFlag.REFRESHING) refreshAnimate else arrowDegrees),
                 imageVector = when (flag) {
-                    SmartSwipeStateFlag.IDLE -> Icons.Default.KeyboardArrowDown
+                    SmartSwipeStateFlag.IDLE -> Icons.Default.KeyboardArrowUp
                     SmartSwipeStateFlag.REFRESHING -> Icons.Default.Refresh
                     SmartSwipeStateFlag.SUCCESS -> {
                         lastRecordTime = System.currentTimeMillis()
@@ -60,24 +58,24 @@ fun MyRefreshHeader(flag: SmartSwipeStateFlag, isNeedTimestamp: Boolean = true) 
                         lastRecordTime = System.currentTimeMillis()
                         Icons.Default.Warning
                     }
-                    SmartSwipeStateFlag.TIPS_DOWN -> Icons.Default.KeyboardArrowDown
-                    SmartSwipeStateFlag.TIPS_RELEASE -> Icons.Default.KeyboardArrowDown
+                    SmartSwipeStateFlag.TIPS_DOWN -> Icons.Default.KeyboardArrowUp
+                    SmartSwipeStateFlag.TIPS_RELEASE -> Icons.Default.KeyboardArrowUp
                 },
                 contentDescription = null
             )
             Column(modifier = Modifier.padding(start = 8.dp)) {
                 Text(
                     text = when (flag) {
-                        SmartSwipeStateFlag.REFRESHING -> "刷新中..."
-                        SmartSwipeStateFlag.SUCCESS -> "刷新成功"
-                        SmartSwipeStateFlag.ERROR -> "刷新失败"
-                        SmartSwipeStateFlag.IDLE, SmartSwipeStateFlag.TIPS_DOWN -> "下拉可以刷新"
-                        SmartSwipeStateFlag.TIPS_RELEASE -> "释放立即刷新"
+                        SmartSwipeStateFlag.REFRESHING -> "正在加载..."
+                        SmartSwipeStateFlag.SUCCESS -> "加载成功"
+                        SmartSwipeStateFlag.ERROR -> "加载失败"
+                        SmartSwipeStateFlag.IDLE, SmartSwipeStateFlag.TIPS_DOWN -> "上拉加载更多"
+                        SmartSwipeStateFlag.TIPS_RELEASE -> "释放立即加载"
                     }, fontSize = 18.sp
                 )
                 if (isNeedTimestamp) {
                     Spacer(modifier = Modifier.height(4.dp))
-                    Text(text = "上次刷新：${SimpleDateFormat("MM-dd HH:mm", Locale.getDefault()).format(lastRecordTime)}", fontSize = 14.sp)
+                    Text(text = "上次加载：${SimpleDateFormat("MM-dd HH:mm", Locale.getDefault()).format(lastRecordTime)}", fontSize = 14.sp)
                 }
             }
         }

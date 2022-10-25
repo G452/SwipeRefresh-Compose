@@ -1,4 +1,4 @@
-package com.google.accompanist.swiperefresh.footer
+package com.google.accompanist.swiperefresh.ui.footer
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -39,7 +39,7 @@ fun BjxRefreshFooter(flag: SmartSwipeStateFlag) {
             }
         }
     }
-    ConstraintLayout(modifier = Modifier.fillMaxWidth().height(80.dp).background(Color.White)) {
+    ConstraintLayout(modifier = Modifier.fillMaxWidth().height(50.dp).background(Color.White)) {
         val (img, textView) = createRefs()
         if (flag == SmartSwipeStateFlag.ERROR) {
             Text(text = "暂无更多数据", fontSize = 14.sp, color = "999999".toColor(), modifier = Modifier.constrainAs(textView) {

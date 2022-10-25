@@ -95,3 +95,5 @@ drawable loading_medai_32
 drawable loading_medai_33
 drawable loading_medai_34
 drawable loading_medai_35
+drawable resume_empty
+drawable search_nodata

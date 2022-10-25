@@ -94,3 +94,5 @@ int drawable loading_medai_32 0x0
 int drawable loading_medai_33 0x0
 int drawable loading_medai_34 0x0
 int drawable loading_medai_35 0x0
+int drawable resume_empty 0x0
+int drawable search_nodata 0x0

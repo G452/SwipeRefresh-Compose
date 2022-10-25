@@ -4,6 +4,6 @@ data class SwipeUiState<T>(
     var list: List<T>? = null,
     var data: T? = null,
     var isLoading: Boolean = false,
-    var refreshSuccess: Boolean? = null,
+    var refreshSuccess: Boolean? = null,//true
     var loadMoreSuccess: Boolean? = null,
 )

@@ -18,8 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.bjx.swiperefresh.ui.theme.SwipeRefreshComposeTheme
 import com.google.accompanist.swiperefresh.SmartSwipeRefresh
 import com.google.accompanist.swiperefresh.config.SwipeUiState
-import com.google.accompanist.swiperefresh.footer.BjxRefreshFooter
-import com.google.accompanist.swiperefresh.header.BjxMedaiRefreshHeader
 import com.google.accompanist.swiperefresh.rememberSmartSwipeRefreshState
 
 class MainActivity : ComponentActivity() {
@@ -43,10 +41,6 @@ class MainActivity : ComponentActivity() {
             viewModel.getData()
         }, onLoadMore = {
             viewModel.loadData()
-        }, headerIndicator = {//可不传，有默认header
-            BjxMedaiRefreshHeader(refreshState.refreshFlag)
-        }, footerIndicator = {//可不传，有默认footer
-            BjxRefreshFooter(refreshState.loadMoreFlag)
         }) {
             swipeUiState.value?.list?.let { list ->
                 LazyColumn(state = scrollState) {
