@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
     fun NewsList(viewModel: MainViewModel) {
         val scrollState = rememberLazyListState()
         val refreshState = rememberSmartSwipeRefreshState()
-        val swipeUiState = viewModel.allList.observeAsState(SwipeUiState())
+        val swipeUiState = viewModel.mainListDta.observeAsState(SwipeUiState())
         SmartSwipeRefresh(state = refreshState, scrollState = scrollState, swipeUiState = swipeUiState.value, onRefresh = {
             viewModel.getData()
         }, onLoadMore = {
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
         }, footerIndicator = {//可不传，有默认footer
             BjxRefreshFooter(refreshState.loadMoreFlag)
         }) {
-            swipeUiState.value?.List?.let { list ->
+            swipeUiState.value?.list?.let { list ->
                 LazyColumn(state = scrollState) {
                     items(list.size) { index ->
                         ItemView(list[index])

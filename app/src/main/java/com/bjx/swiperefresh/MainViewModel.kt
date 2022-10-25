@@ -9,14 +9,15 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    val allList = MutableLiveData<SwipeUiState<String>>()
-    var list = arrayListOf<String>()
 
+    var allList = arrayListOf<String>()
+    val mainListDta = MutableLiveData<SwipeUiState<String>>()
     fun getData() {
         MainScope().launch {
-            allList.value = SwipeUiState(list, isLoading = true)
+            mainListDta.value = SwipeUiState(allList, isLoading = true)
+            pageIndex = 1
             delay(1500)
-            list = arrayListOf(
+            allList = arrayListOf(
                 "Jetpack Compose过于早期，只有基础控件，甚至周边设施都是之后才会有的。\n",
                 "在去年立项的时候Jetpack Compose刚刚alpha02，什么",
                 "周边设施都没有，比如Navigation一开始是借用",
@@ -30,16 +31,21 @@ class MainViewModel : ViewModel() {
                 "周边设施都没有，比如Navigation一开始是借用",
                 "的fragment去做的，后来Navigation Co",
             )
-            allList.value = SwipeUiState(list, refreshSuccess = true)
+            mainListDta.value = SwipeUiState(allList, refreshSuccess = true)
         }
     }
 
+    var pageIndex = 1
     fun loadData() {
         MainScope().launch {
-            allList.value = SwipeUiState(list, isLoading = true)
+            mainListDta.value = mainListDta.value?.apply {
+                isLoading = true
+            }
             delay(1500)
-            list.addAll(list)
-            allList.value = SwipeUiState(list, loadMoreSuccess = true)
+            pageIndex++
+            val isHaveData = pageIndex <= 3//模拟只有3页数据
+            if (isHaveData) allList.addAll(allList)
+            mainListDta.value = SwipeUiState(allList, loadMoreSuccess = isHaveData)
         }
     }
 
