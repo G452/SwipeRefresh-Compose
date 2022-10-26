@@ -16,9 +16,7 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.zIndex
-import com.google.accompanist.swiperefresh.config.Config.defaultEmptyImage
-import com.google.accompanist.swiperefresh.config.Config.defaultEmptyTitle
-import com.google.accompanist.swiperefresh.config.Config.isBjxMedia
+import com.google.accompanist.swiperefresh.config.SwipeRefreshConfig
 import com.google.accompanist.swiperefresh.config.SwipeUiState
 import com.google.accompanist.swiperefresh.ui.EmptyView
 import com.google.accompanist.swiperefresh.ui.FirstLoadingView
@@ -40,13 +38,13 @@ fun <T> SmartSwipeRefresh(
     isNeedLoadMore: Boolean = true,//是否需要上拉加载更多
     isNeedEmptyView: Boolean = true,//是否需要缺省图
     isNeedFirstLoadView: Boolean = true,//是否需要首次加载loading动画
-    EmptyImg: Int = defaultEmptyImage,//缺省图icon
-    EmptyTitle: String = defaultEmptyTitle,//缺省图文案
+    EmptyImg: Int = SwipeRefreshConfig.defaultEmptyImage,//缺省图icon
+    EmptyTitle: String = SwipeRefreshConfig.defaultEmptyTitle,//缺省图文案
     onEmptyClick: () -> Unit = {},//缺省图点击
     headerThreshold: Dp? = null,
     footerThreshold: Dp? = null,
     headerIndicator: @Composable () -> Unit = { //下拉headerView
-        if (isBjxMedia) BjxMedaiRefreshHeader(state.refreshFlag) else BjxRefreshHeader(state.refreshFlag)
+        if (SwipeRefreshConfig.isBjxMedia) BjxMedaiRefreshHeader(state.refreshFlag) else BjxRefreshHeader(state.refreshFlag)
     },
     footerIndicator: @Composable () -> Unit = { BjxRefreshFooter(state.loadMoreFlag) },//上拉footerView
     firstLoadView: @Composable () -> Unit = { FirstLoadingView(swipeUiState?.isLoading) },//首次加载loadView

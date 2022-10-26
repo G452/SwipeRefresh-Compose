@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.bjx.swiperefresh.ui.theme.SwipeRefreshComposeTheme
 import com.google.accompanist.swiperefresh.SmartSwipeRefresh
+import com.google.accompanist.swiperefresh.config.SwipeRefreshConfig
 import com.google.accompanist.swiperefresh.config.SwipeUiState
 import com.google.accompanist.swiperefresh.rememberSmartSwipeRefreshState
 

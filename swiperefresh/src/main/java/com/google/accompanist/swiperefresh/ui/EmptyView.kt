@@ -17,12 +17,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.swiperefresh.config.Config.defaultEmptyImage
-import com.google.accompanist.swiperefresh.config.Config.defaultEmptyTitle
+import com.google.accompanist.swiperefresh.config.SwipeRefreshConfig
 import com.google.accompanist.swiperefresh.ui.footer.toColor
 
 @Composable
-fun EmptyView(img: Int = defaultEmptyImage, title: String = defaultEmptyTitle, onClick: () -> Unit = {}) {
+fun EmptyView(img: Int = SwipeRefreshConfig.defaultEmptyImage, title: String = SwipeRefreshConfig.defaultEmptyTitle, onClick: () -> Unit = {}) {
     ConstraintLayout(modifier = Modifier.width(500.dp).height(300.dp).padding(0.dp)
         .clickable(onClick = onClick, indication = null, interactionSource = remember { MutableInteractionSource() })) {
         val (imgView, textView) = createRefs()
