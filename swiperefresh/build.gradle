@@ -114,7 +114,7 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                version '1.0.3'//版本
+                version '1.0.4'//版本
                 artifactId 'SwipeRefresh-Compose'
                 groupId = 'com.bjx.bjxLib'
                 description 'SwipeRefresh-Compose'

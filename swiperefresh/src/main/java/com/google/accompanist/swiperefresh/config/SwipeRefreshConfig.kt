@@ -8,8 +8,9 @@ import com.google.accompanist.swiperefresh.R
  * */
 class SwipeRefreshConfig {
     companion object {
-        var isBjxMedia = true
-        var defaultEmptyImage = if (isBjxMedia) R.drawable.search_nodata else R.drawable.resume_empty
+        var isBjxMedia = false
+        val defaultEmptyImage get() = if (isBjxMedia) R.drawable.search_nodata else R.drawable.resume_empty
+        val defaultRefreshImages get() = if (isBjxMedia) AnimImage.loadingMediaList else AnimImage.loadingList
         var defaultEmptyTitle = "暂无数据"
         //还需要什么继续加...
     }

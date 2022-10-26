@@ -21,7 +21,6 @@ import com.google.accompanist.swiperefresh.config.SwipeUiState
 import com.google.accompanist.swiperefresh.ui.EmptyView
 import com.google.accompanist.swiperefresh.ui.FirstLoadingView
 import com.google.accompanist.swiperefresh.ui.footer.BjxRefreshFooter
-import com.google.accompanist.swiperefresh.ui.header.BjxMedaiRefreshHeader
 import com.google.accompanist.swiperefresh.ui.header.BjxRefreshHeader
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -32,7 +31,7 @@ fun <T> SmartSwipeRefresh(
     modifier: Modifier = Modifier,
     onRefresh: (suspend () -> Unit)? = null,
     onLoadMore: (suspend () -> Unit)? = null,
-    swipeUiState: SwipeUiState<T>? = null,//如果传入了swipeUiState，则SmartSwipeRefresh帮你处理:上拉下拉状态、缺省图
+    swipeUiState: SwipeUiState<T>? = null,//如果传入了swipeUiState，则SmartSwipeRefresh帮你处理:上拉下拉状态、缺省图、首次加载loading
     scrollState: LazyListState? = rememberLazyListState(),
     isNeedRefresh: Boolean = true,//是否需要下拉刷新
     isNeedLoadMore: Boolean = true,//是否需要上拉加载更多
@@ -43,9 +42,7 @@ fun <T> SmartSwipeRefresh(
     onEmptyClick: () -> Unit = {},//缺省图点击
     headerThreshold: Dp? = null,
     footerThreshold: Dp? = null,
-    headerIndicator: @Composable () -> Unit = { //下拉headerView
-        if (SwipeRefreshConfig.isBjxMedia) BjxMedaiRefreshHeader(state.refreshFlag) else BjxRefreshHeader(state.refreshFlag)
-    },
+    headerIndicator: @Composable () -> Unit = { BjxRefreshHeader(state.refreshFlag) },//下拉headerView
     footerIndicator: @Composable () -> Unit = { BjxRefreshFooter(state.loadMoreFlag) },//上拉footerView
     firstLoadView: @Composable () -> Unit = { FirstLoadingView(swipeUiState?.isLoading) },//首次加载loadView
     content: @Composable () -> Unit,

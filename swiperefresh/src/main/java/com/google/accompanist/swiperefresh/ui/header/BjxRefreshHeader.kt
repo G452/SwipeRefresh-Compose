@@ -15,22 +15,23 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.swiperefresh.R
 import com.google.accompanist.swiperefresh.SmartSwipeStateFlag
-import com.google.accompanist.swiperefresh.config.AnimImage
+import com.google.accompanist.swiperefresh.config.SwipeRefreshConfig
 import kotlinx.coroutines.delay
 
 @Composable
 fun BjxRefreshHeader(flag: SmartSwipeStateFlag) {
     val loadImg = remember { mutableStateOf(R.drawable.loading_00) }
+    val imgList = SwipeRefreshConfig.defaultRefreshImages
     LaunchedEffect(flag) {
         var index = 0
         var isLoad = true
         while (isLoad) {
             if (flag == SmartSwipeStateFlag.REFRESHING) {
-                loadImg.value = AnimImage.loadingList[index]
-                if (index == AnimImage.loadingList.lastIndex) index = 0 else index++
+                loadImg.value = imgList[index]
+                if (index == imgList.lastIndex) index = 0 else index++
                 delay(20)
             } else {
-                loadImg.value = AnimImage.loadingList[0]
+                loadImg.value = imgList[0]
                 isLoad = false
             }
         }

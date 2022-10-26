@@ -2,6 +2,7 @@ package com.bjx.swiperefresh
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.accompanist.swiperefresh.config.SwipeRefreshConfig
 import com.google.accompanist.swiperefresh.config.SwipeUiState
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -52,6 +53,7 @@ class MainViewModel : ViewModel() {
             val isHaveData = pageIndex <= 3//模拟只有3页数据
             if (isHaveData) allList.addAll(allList)
             mainListDta.value = SwipeUiState(allList, loadMoreSuccess = isHaveData)
+            SwipeRefreshConfig.isBjxMedia = true
         }
     }
 

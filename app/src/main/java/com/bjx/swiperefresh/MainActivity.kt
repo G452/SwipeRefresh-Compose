@@ -25,6 +25,7 @@ class MainActivity : ComponentActivity() {
     private val viewModel = MainViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        SwipeRefreshConfig.isBjxMedia = false
         setContent {
             SwipeRefreshComposeTheme {
                 NewsList(viewModel)
