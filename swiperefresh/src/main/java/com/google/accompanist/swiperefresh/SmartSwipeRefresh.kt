@@ -21,6 +21,7 @@ import com.google.accompanist.swiperefresh.config.Config.defaultEmptyTitle
 import com.google.accompanist.swiperefresh.config.Config.isBjxMedia
 import com.google.accompanist.swiperefresh.config.SwipeUiState
 import com.google.accompanist.swiperefresh.ui.EmptyView
+import com.google.accompanist.swiperefresh.ui.FirstLoadingView
 import com.google.accompanist.swiperefresh.ui.footer.BjxRefreshFooter
 import com.google.accompanist.swiperefresh.ui.header.BjxMedaiRefreshHeader
 import com.google.accompanist.swiperefresh.ui.header.BjxRefreshHeader
@@ -38,6 +39,7 @@ fun <T> SmartSwipeRefresh(
     isNeedRefresh: Boolean = true,//是否需要下拉刷新
     isNeedLoadMore: Boolean = true,//是否需要上拉加载更多
     isNeedEmptyView: Boolean = true,//是否需要缺省图
+    isNeedFirstLoadView: Boolean = true,//是否需要首次加载loading动画
     EmptyImg: Int = defaultEmptyImage,//缺省图icon
     EmptyTitle: String = defaultEmptyTitle,//缺省图文案
     onEmptyClick: () -> Unit = {},//缺省图点击
@@ -47,6 +49,7 @@ fun <T> SmartSwipeRefresh(
         if (isBjxMedia) BjxMedaiRefreshHeader(state.refreshFlag) else BjxRefreshHeader(state.refreshFlag)
     },
     footerIndicator: @Composable () -> Unit = { BjxRefreshFooter(state.loadMoreFlag) },//上拉footerView
+    firstLoadView: @Composable () -> Unit = { FirstLoadingView(swipeUiState?.isLoading) },//首次加载loadView
     content: @Composable () -> Unit,
 ) {
     val density = LocalDensity.current
@@ -95,7 +98,6 @@ fun <T> SmartSwipeRefresh(
             val smartSwipeRefreshNestedScrollConnection = remember(state, header, footer) {
                 SmartSwipeRefreshNestedScrollConnection(state, header, footer)
             }
-
             Box(modifier.nestedScroll(smartSwipeRefreshNestedScrollConnection), contentAlignment = Alignment.TopCenter) {
                 if (isNeedRefresh) {
                     Box(Modifier.offset(y = -header + state.indicatorOffset)) {
@@ -126,10 +128,10 @@ fun <T> SmartSwipeRefresh(
                     }
                 }
                 Box(modifier = Modifier.offset(y = state.indicatorOffset).fillMaxSize()) {
-                    if (isNeedEmptyView) {
-                        if (swipeUiState?.list.isNullOrEmpty() && swipeUiState?.data == null && swipeUiState?.refreshSuccess == false) {
-                            EmptyView(EmptyImg, EmptyTitle, onEmptyClick)
-                        } else content()
+                    if (isNeedFirstLoadView && swipeUiState?.isLoading == true && swipeUiState.list.isNullOrEmpty() && swipeUiState.data == null) {
+                        firstLoadView()
+                    } else if (isNeedEmptyView && swipeUiState?.list.isNullOrEmpty() && swipeUiState?.data == null && swipeUiState?.refreshSuccess == false) {
+                        EmptyView(EmptyImg, EmptyTitle, onEmptyClick)
                     } else content()
                     if (isNeedLoadMore) {
                         Box(modifier = Modifier.align(Alignment.BottomCenter).offset(y = footer)) {

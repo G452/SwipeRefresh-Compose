@@ -22,7 +22,6 @@ int drawable load_more17 0x0
 int drawable load_more18 0x0
 int drawable load_more19 0x0
 int drawable load_more20 0x0
-int drawable load_more2323 0x0
 int drawable loading_00 0x0
 int drawable loading_01 0x0
 int drawable loading_02 0x0

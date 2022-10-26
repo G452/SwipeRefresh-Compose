@@ -1,6 +1,5 @@
 package com.google.accompanist.swiperefresh.ui.footer
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +20,6 @@ import com.google.accompanist.swiperefresh.SmartSwipeStateFlag
 import com.google.accompanist.swiperefresh.config.AnimImage
 import kotlinx.coroutines.delay
 
-@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun BjxRefreshFooter(flag: SmartSwipeStateFlag) {
     val loadImg = remember { mutableStateOf(R.drawable.loading_00) }

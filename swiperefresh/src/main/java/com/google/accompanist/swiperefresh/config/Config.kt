@@ -7,7 +7,7 @@ import com.google.accompanist.swiperefresh.R
  * 需在Application修改
 * */
 object Config {
-    var isBjxMedia = false
+    var isBjxMedia = true
     var defaultEmptyImage = if (isBjxMedia) R.drawable.search_nodata else R.drawable.resume_empty
     var defaultEmptyTitle = "暂无数据"
     //还需要什么继续加...

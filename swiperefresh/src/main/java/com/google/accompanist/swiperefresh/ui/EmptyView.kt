@@ -32,9 +32,9 @@ fun EmptyView(img: Int = defaultEmptyImage, title: String = defaultEmptyTitle, o
             top.linkTo(parent.top)
             bottom.linkTo(parent.bottom)
         })
-        Text(text = title, fontSize = 16.sp, color = "333333".toColor(), textAlign = TextAlign.Center, modifier = Modifier.constrainAs(textView) {
-            start.linkTo(imgView.start)
-            end.linkTo(imgView.end)
+        Text(text = title, fontSize = 15.sp, color = "333333".toColor(), textAlign = TextAlign.Center, modifier = Modifier.constrainAs(textView) {
+            start.linkTo(parent.start, 24.dp)
+            end.linkTo(parent.end, 24.dp)
             top.linkTo(imgView.bottom, 16.dp)
             width = Dimension.fillToConstraints
         })

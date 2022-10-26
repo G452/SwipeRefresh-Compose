@@ -24,7 +24,6 @@ drawable load_more17
 drawable load_more18
 drawable load_more19
 drawable load_more20
-drawable load_more2323
 drawable loading_00
 drawable loading_01
 drawable loading_02
